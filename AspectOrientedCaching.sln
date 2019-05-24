@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspectCache.Core", "AspectCache.Core\AspectCache.Core.csproj", "{03EFF081-A750-43E2-BA5D-302B82A5AE18}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspectCache.Tests", "ApectCache.Tests\AspectCache.Tests.csproj", "{2A97D021-0776-4C3B-A944-937E595E884D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{411C7F95-C9D0-421A-B88C-5EE95E7C2D33}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03EFF081-A750-43E2-BA5D-302B82A5AE18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03EFF081-A750-43E2-BA5D-302B82A5AE18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03EFF081-A750-43E2-BA5D-302B82A5AE18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03EFF081-A750-43E2-BA5D-302B82A5AE18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A97D021-0776-4C3B-A944-937E595E884D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A97D021-0776-4C3B-A944-937E595E884D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A97D021-0776-4C3B-A944-937E595E884D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A97D021-0776-4C3B-A944-937E595E884D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {57830AF4-5E04-433B-8DC1-B252042089C5}
+	EndGlobalSection
+EndGlobal
