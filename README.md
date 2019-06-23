@@ -15,3 +15,4 @@ Methods will only be cached when they are accessed via dependency injection. In 
 * <https://github.com/vyasabhishek/Aspect-Oriented-Cache/tree/master/Cache>
 * <https://doc.postsharp.net/caching>
 * <https://github.com/m4bwav/CachingServiceWithAOPSupport>
+* <https://github.com/MichaCo/CacheManager>

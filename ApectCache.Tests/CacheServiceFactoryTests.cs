@@ -1,10 +1,14 @@
 ﻿using AspectCache.Core.Components;
+using AspectCache.Core.Interfaces;
 using AspectCache.Tests.Components;
+using CacheManager.Core;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ConfigurationBuilder = Microsoft.Extensions.Configuration.ConfigurationBuilder;
 
 namespace AspectCache.Tests
 {
@@ -19,22 +23,14 @@ namespace AspectCache.Tests
         }
 
         [TestMethod]
-        public void Constructor_HappyPath()
-        {
-            Mock<BaseCacheService> mockCacheService = new Mock<BaseCacheService>();
-
-            CacheServiceFactory factory = new CacheServiceFactory(new[] { mockCacheService.Object }.AsEnumerable());
-
-            Assert.IsNotNull(factory);
-        }
-
-        [TestMethod]
         public void GetCache_ShouldReturnCacheOfAppropriateType()
         {
+            Mock<IKeyService> mockKeyService = new Mock<IKeyService>();
+
             List<BaseCacheService> cacheServices = new List<BaseCacheService>
             {
-                new TestCacheService1(),
-                new TestCacheService2()
+                new TestCacheService1(mockKeyService.Object, GetConfiguration("TestCacheService1")),
+                new TestCacheService2(mockKeyService.Object, GetConfiguration("TestCacheService2"))
             };
 
             CacheServiceFactory factory = new CacheServiceFactory(cacheServices);
@@ -53,9 +49,11 @@ namespace AspectCache.Tests
         [ExpectedException(typeof(UnregisteredCacheServiceException), "Unregistered CacheService requested: TestCacheService2")]
         public void GetCache_ShouldThrowExceptionWhenUnregisteredTypeRequested()
         {
+            Mock<IKeyService> mockKeyService = new Mock<IKeyService>();
+
             List<BaseCacheService> cacheServices = new List<BaseCacheService>
             {
-                new TestCacheService1()
+                new TestCacheService1(mockKeyService.Object, GetConfiguration("TestCacheService1")),
             };
 
             CacheServiceFactory factory = new CacheServiceFactory(cacheServices);
@@ -67,5 +65,15 @@ namespace AspectCache.Tests
 
             factory.GetCache<TestCacheService2>();
         }
+
+        private static ICacheManagerConfiguration GetConfiguration(string name)
+        {
+            var config = new Dictionary<string, string>();
+            config.Add("cacheManagers", "");
+
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder().AddJsonFile($"Configs\\{name}.json");
+            return configurationBuilder.Build().GetCacheConfiguration(name);
+        }
+
     }
 }

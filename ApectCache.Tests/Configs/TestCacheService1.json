@@ -1,0 +1,18 @@
+{
+  "$schema": "http://cachemanager.michaco.net/schemas/cachemanager.json#",
+  "cacheManagers": [
+    {
+      "maxRetries": 1000,
+      "name": "TestCacheService1",
+      "retryTimeout": 100,
+      "updateMode": "None",
+      "handles": [
+        {
+          "knownType": "MsMemory",
+          "key": "TestCacheService1",
+          "isBackplaneSource": true
+        }
+      ]
+    }
+  ]
+}

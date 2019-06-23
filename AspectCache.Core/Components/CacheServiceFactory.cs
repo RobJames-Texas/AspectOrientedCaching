@@ -20,7 +20,7 @@ namespace AspectCache.Core.Components
 
         public ICacheService GetCache<T>() where T : BaseCacheService
         {
-            return _cacheServices.Where(x => x.GetType() == typeof(T)).FirstOrDefault() ?? throw new UnregisteredCacheServiceException(typeof(T).ToString());
+            return _cacheServices.Where(x => x is T).FirstOrDefault() ?? throw new UnregisteredCacheServiceException(typeof(T).ToString());
         }
     }
 }
