@@ -8,6 +8,10 @@ namespace AspectCache.Core.Aspect
 
         public double SlidingExpiration { get; set; }
 
+        public bool IgnoreThisParameter { get; set; }
+
+        public bool OnlyWhenAllParametersAreNull { get; set; }
+
         public CacheAttribute()
         {
 
