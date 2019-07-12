@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace AspectCache.Core.Aspect
 {
-    // Based on the caching interceptor by  Mark Rogers (mb4wav on GitHub)
+    // Based on the caching interceptor by Mark Rogers (mb4wav on GitHub)
     public class CachingInterceptor : IInterceptor
     {
         private ICacheServiceFactory _cacheServiceFactory;
@@ -27,22 +27,11 @@ namespace AspectCache.Core.Aspect
                 // This method should be cached.
                 CacheAttribute cacheAttribute = (CacheAttribute)invocation.MethodInvocationTarget.GetCustomAttributes(typeof(CacheAttribute), false).FirstOrDefault();
 
-                Type cacheType = cacheAttribute.CacheType;
-                // TODO: Workout how to get the appropriate cache. No magic strings.
-                ICacheService cacheService =  null;// = _cacheServiceFactory.GetCache<>();
+                ICacheService cacheService =  _cacheServiceFactory.GetCache(cacheAttribute.CacheType);
 
                 if (cacheAttribute != null)
                 {
-                    if (cacheAttribute != null && cacheAttribute.Timeout != null)
-                    {
-                        var duration = cacheAttribute.Timeout;
-
-                        cacheService.GetByInvocation(invocation, duration);
-                    }
-                    else
-                    {
-                        cacheService.GetByInvocation(invocation);
-                    }
+                    cacheService.GetByInvocation(invocation, cacheAttribute);
                 }
             }
             else if (hasInvalidateCacheAttribute)
@@ -52,7 +41,7 @@ namespace AspectCache.Core.Aspect
                 IEnumerable<ICacheService> cacheServices = _cacheServiceFactory.All();
 
                 // Invalidate the cache on all cache services.
-                cacheServices.ToList().ForEach(x => x.DeleteByInvocation(invocation));
+                cacheServices.ToList().ForEach(x => x.DeleteByInvocation(invocation, invalidateCacheAttribute.MethodNames));
             }
             else
             {

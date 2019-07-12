@@ -23,6 +23,15 @@ namespace AspectCache.Core.Components
             return _cacheServices.Where(x => x is T).FirstOrDefault() ?? throw new UnregisteredCacheServiceException(typeof(T).ToString());
         }
 
+        public ICacheService GetCache(Type cacheType)
+        {
+            if (!cacheType.GetInterfaces().Contains(typeof(ICacheService)))
+            {
+                throw new ArgumentException(nameof(cacheType) + " parameter must be a type that implements ICacheService");
+            }
+            return _cacheServices.Where(x => x.GetType() == cacheType).FirstOrDefault() ?? throw new UnregisteredCacheServiceException(cacheType.ToString());
+        }
+
         public IEnumerable<ICacheService> All()
         {
             return _cacheServices;

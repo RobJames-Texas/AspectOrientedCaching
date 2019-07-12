@@ -1,5 +1,5 @@
-﻿using Castle.DynamicProxy;
-using System;
+﻿using AspectCache.Core.Aspect;
+using Castle.DynamicProxy;
 
 namespace AspectCache.Core.Interfaces
 {
@@ -13,8 +13,8 @@ namespace AspectCache.Core.Interfaces
 
         void Clear();
 
-        void GetByInvocation(IInvocation invocation, TimeSpan? duration = null);
+        void GetByInvocation(IInvocation invocation, CacheAttribute cacheAttribute);
 
-        void DeleteByInvocation(IInvocation invocation);
+        void DeleteByInvocation(IInvocation invocation, string[] methodNames);
     }
 }

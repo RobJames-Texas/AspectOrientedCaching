@@ -8,14 +8,16 @@ namespace AspectCache.Core.Aspect
     /// </summary>
     public sealed class InvalidateCacheAttribute : Attribute
     {
+        public string[] MethodNames { get; private set; }
+
         public InvalidateCacheAttribute(string[] methodNames)
         {
-
+            MethodNames = methodNames;
         }
 
         public InvalidateCacheAttribute(Type declaringType, params string[] methodNames)
         {
-
+            MethodNames = methodNames;
         }
     }
 }
