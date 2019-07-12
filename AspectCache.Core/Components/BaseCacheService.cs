@@ -1,5 +1,6 @@
 ﻿using AspectCache.Core.Interfaces;
 using CacheManager.Core;
+using Castle.DynamicProxy;
 using System;
 
 namespace AspectCache.Core.Components
@@ -54,6 +55,32 @@ namespace AspectCache.Core.Components
         public void Clear()
         {
             _cacheManager.Clear();
+        }
+
+        public void GetByInvocation(IInvocation invocation, TimeSpan? duration = null)
+        {
+            var key = _keyService.GenerateUniqueKeyForCall(invocation);
+
+            var result = _cacheManager.Get(key);
+
+            if (result != null)
+            {
+                invocation.ReturnValue = result;
+                return;
+            }
+
+            invocation.Proceed();
+            var value = invocation.ReturnValue;
+
+            // No set on ICacheManager.
+            //_cacheManager.Set(key, value, outTime);
+        }
+
+        public void DeleteByInvocation(IInvocation invocation)
+        {          
+            throw new NotImplementedException();
+            // Need to get a list of all the cache services, loop over them, and remove the cached objects by their key.
+            invocation.Proceed();
         }
 
         private static T CastResultToTypeOrDefault<T>(object result)

@@ -22,5 +22,10 @@ namespace AspectCache.Core.Components
         {
             return _cacheServices.Where(x => x is T).FirstOrDefault() ?? throw new UnregisteredCacheServiceException(typeof(T).ToString());
         }
+
+        public IEnumerable<ICacheService> All()
+        {
+            return _cacheServices;
+        }
     }
 }

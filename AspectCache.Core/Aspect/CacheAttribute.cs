@@ -12,9 +12,18 @@ namespace AspectCache.Core.Aspect
 
         public bool OnlyWhenAllParametersAreNull { get; set; }
 
+        public TimeSpan Timeout { get; private set; }
+
+        public Type CacheType { get; private set; }
+
         public CacheAttribute()
         {
+            // TODO: Setup a mechanism to get a default cache.
+        }
 
+        public CacheAttribute(Type cacheType)
+        {
+            CacheType = cacheType;
         }
     }
 }

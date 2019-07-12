@@ -1,4 +1,7 @@
-﻿namespace AspectCache.Core.Interfaces
+﻿using Castle.DynamicProxy;
+using System;
+
+namespace AspectCache.Core.Interfaces
 {
     public interface ICacheService
     {
@@ -9,5 +12,9 @@
         bool Remove(string key);
 
         void Clear();
+
+        void GetByInvocation(IInvocation invocation, TimeSpan? duration = null);
+
+        void DeleteByInvocation(IInvocation invocation);
     }
 }
