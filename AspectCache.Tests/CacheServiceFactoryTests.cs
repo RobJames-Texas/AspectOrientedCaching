@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using ConfigurationBuilder = Microsoft.Extensions.Configuration.ConfigurationBuilder;
 
@@ -71,7 +72,9 @@ namespace AspectCache.Tests
             var config = new Dictionary<string, string>();
             config.Add("cacheManagers", "");
 
-            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder().AddJsonFile($"Configs\\{name}.json");
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "Configs"))
+                .AddJsonFile($"{name}.json");
             return configurationBuilder.Build().GetCacheConfiguration(name);
         }
 
