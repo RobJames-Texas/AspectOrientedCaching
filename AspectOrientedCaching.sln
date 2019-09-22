@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspectCache.Core", "AspectCache.Core\AspectCache.Core.csproj", "{03EFF081-A750-43E2-BA5D-302B82A5AE18}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspectCache.Tests", "ApectCache.Tests\AspectCache.Tests.csproj", "{2A97D021-0776-4C3B-A944-937E595E884D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspectCache.Tests", "AspectCache.Tests\AspectCache.Tests.csproj", "{2A97D021-0776-4C3B-A944-937E595E884D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{411C7F95-C9D0-421A-B88C-5EE95E7C2D33}"
 	ProjectSection(SolutionItems) = preProject
