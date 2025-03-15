@@ -36,22 +36,21 @@ namespace AspectCache.Tests.Components
         }
 
         [Cache(IgnoreThisParameter = true)]
-        public IEnumerable<string> Numbers(int skip, [NotCacheKey]Guid sometoken)
+        public IEnumerable<string> Numbers(int skip, [NotCacheKey]Guid someToken)
         {
             return _keyValuePairs.Keys.Skip(skip);
         }
 
-        [InvalidateCache(new[] { nameof(StringToInt), nameof(AvailableNumbers), nameof(Numbers) })]
+        [InvalidateCache([nameof(StringToInt), nameof(AvailableNumbers), nameof(Numbers)])]
         public void AddOrUpdate(string number, int integer)
         {
             _keyValuePairs[number] = integer;
         }
 
-        [InvalidateCache(new[] { nameof(StringToInt), nameof(AvailableNumbers), nameof(Numbers) })]
+        [InvalidateCache([nameof(StringToInt), nameof(AvailableNumbers), nameof(Numbers)])]
         public void Delete(string number)
         {
             _keyValuePairs.Remove(number);
         }
-
     }
 }

@@ -7,7 +7,7 @@ namespace AspectCache.Core.Components
 {
     /// <summary>
     /// Factory to return the appropriate cache service based upon the type requested.
-    /// Cache services should be registered by the dependancy injection.
+    /// Cache services should be registered by the dependency injection.
     /// </summary>
     public class CacheServiceFactory : ICacheServiceFactory
     {
@@ -20,7 +20,7 @@ namespace AspectCache.Core.Components
 
         public ICacheService GetCache<T>() where T : BaseCacheService
         {
-            return _cacheServices.Where(x => x is T).FirstOrDefault() ?? throw new UnregisteredCacheServiceException(typeof(T).ToString());
+            return _cacheServices.FirstOrDefault(x => x is T) ?? throw new UnregisteredCacheServiceException(typeof(T).ToString());
         }
 
         public ICacheService GetCache(Type cacheType)
@@ -29,7 +29,7 @@ namespace AspectCache.Core.Components
             {
                 throw new ArgumentException(nameof(cacheType) + " parameter must be a type that implements ICacheService");
             }
-            return _cacheServices.Where(x => x.GetType() == cacheType).FirstOrDefault() ?? throw new UnregisteredCacheServiceException(cacheType.ToString());
+            return _cacheServices.FirstOrDefault(x => x.GetType() == cacheType) ?? throw new UnregisteredCacheServiceException(cacheType.ToString());
         }
 
         public IEnumerable<ICacheService> All()

@@ -9,13 +9,13 @@ namespace AspectCache.Core.Components
     // Heavily borrowed from Mark Rogers(m4bwav) caching project.
     public abstract class BaseCacheService : ICacheService
     {
-        // Variable to store the cachemanager instance. To be set by classes that inherit from this one.
+        // Variable to store the cache manager instance. To be set by classes that inherit from this one.
         protected readonly ICacheManager<object> _cacheManager;
 
         protected readonly IKeyService _keyService;
 
 
-        public BaseCacheService(IKeyService keyService, ICacheManagerConfiguration cacheManagerConfiguration)
+        protected BaseCacheService(IKeyService keyService, ICacheManagerConfiguration cacheManagerConfiguration)
         {
             _keyService = keyService ?? throw new ArgumentNullException(nameof(keyService));
             if (cacheManagerConfiguration == null)
