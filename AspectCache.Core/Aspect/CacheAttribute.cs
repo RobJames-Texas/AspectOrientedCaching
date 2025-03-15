@@ -4,11 +4,12 @@ using System;
 
 namespace AspectCache.Core.Aspect
 {
+    [AttributeUsage(AttributeTargets.Method)]
     public sealed class CacheAttribute : Attribute
     {
         private double _timeout;
-        private ExpirationMode _expirationMode = ExpirationMode.Default;
-        private const long TicksPerMinute = 600000000;
+        private readonly ExpirationMode _expirationMode = ExpirationMode.Default;
+        private const long _ticksPerMinute = 600000000;
 
         /// <summary>
         /// Gets or sets the total time, in minutes, to retain the object in cache. Time is counted from the moment the result is cached.
@@ -42,7 +43,7 @@ namespace AspectCache.Core.Aspect
         {
             get
             {
-                return new TimeSpan((long)(TicksPerMinute * _timeout));
+                return new TimeSpan((long)(_ticksPerMinute * _timeout));
             }
         }
 

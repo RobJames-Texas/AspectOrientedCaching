@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace AspectCache.Core.Components
 {
@@ -8,6 +7,8 @@ namespace AspectCache.Core.Components
     public class ExpirationModeException : Exception
     {
         public ExpirationModeException() { }
+
+        protected ExpirationModeException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         public ExpirationModeException(string message)
             : base(message) { }

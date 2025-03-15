@@ -8,7 +8,6 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using ConfigurationBuilder = Microsoft.Extensions.Configuration.ConfigurationBuilder;
 
 namespace AspectCache.Tests
@@ -17,10 +16,9 @@ namespace AspectCache.Tests
     public class CacheServiceFactoryTests
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException), "cacheServices")]
         public void Constructor_ShouldThrowExceptionForNullServiceList()
         {
-            new CacheServiceFactory(null);
+            Assert.ThrowsExactly<ArgumentNullException>(() => new CacheServiceFactory(null));
         }
 
         [TestMethod]
@@ -47,7 +45,6 @@ namespace AspectCache.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(UnregisteredCacheServiceException), "Unregistered CacheService requested: TestCacheService2")]
         public void GetCache_ShouldThrowExceptionWhenUnregisteredTypeRequested()
         {
             Mock<IKeyService> mockKeyService = new Mock<IKeyService>();
@@ -64,19 +61,21 @@ namespace AspectCache.Tests
             Assert.IsNotNull(cache1);
             Assert.IsInstanceOfType(cache1, typeof(TestCacheService1));
 
-            factory.GetCache<TestCacheService2>();
+            Assert.ThrowsExactly<UnregisteredCacheServiceException>(() =>
+                factory.GetCache<TestCacheService2>());
         }
 
         private static ICacheManagerConfiguration GetConfiguration(string name)
         {
-            var config = new Dictionary<string, string>();
-            config.Add("cacheManagers", "");
+            var config = new Dictionary<string, string>
+            {
+                { "cacheManagers", "" }
+            };
 
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "Configs"))
                 .AddJsonFile($"{name}.json");
             return configurationBuilder.Build().GetCacheConfiguration(name);
         }
-
     }
 }

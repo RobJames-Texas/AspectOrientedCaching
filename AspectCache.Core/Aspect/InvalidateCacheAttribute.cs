@@ -6,6 +6,7 @@ namespace AspectCache.Core.Aspect
     /// Will invalidate the cache for the specified methods when the method with the attribute is called.
     /// Based on postsharp caching examples.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Method)]
     public sealed class InvalidateCacheAttribute : Attribute
     {
         public string[] MethodNames { get; private set; }

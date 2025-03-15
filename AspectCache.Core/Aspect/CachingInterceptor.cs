@@ -10,7 +10,7 @@ namespace AspectCache.Core.Aspect
     // Based on the caching interceptor by Mark Rogers (mb4wav on GitHub)
     public class CachingInterceptor : IInterceptor
     {
-        private ICacheServiceFactory _cacheServiceFactory;
+        private readonly ICacheServiceFactory _cacheServiceFactory;
 
         public CachingInterceptor(ICacheServiceFactory cacheServiceFactory)
         {
@@ -45,10 +45,9 @@ namespace AspectCache.Core.Aspect
             }
             else
             {
-                // Niether cache attribute is on the method. Let it process normally.
+                // Neither cache attribute is on the method. Let it process normally.
                 invocation.Proceed();
             }
-            return;
         }
 
         private static bool DoesInvocationHaveTheCacheAttribute(IInvocation invocation)
